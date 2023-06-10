@@ -1216,7 +1216,7 @@ Array is a vertex color array.
 
 :ref:`ArrayType<enum_RenderingServer_ArrayType>` **ARRAY_TEX_UV** = ``4``
 
-Array is an UV coordinates array.
+Array is a UV coordinates array.
 
 .. _class_RenderingServer_constant_ARRAY_TEX_UV2:
 
@@ -1224,7 +1224,7 @@ Array is an UV coordinates array.
 
 :ref:`ArrayType<enum_RenderingServer_ArrayType>` **ARRAY_TEX_UV2** = ``5``
 
-Array is an UV coordinates array for the second set of UV coordinates.
+Array is a UV coordinates array for the second set of UV coordinates.
 
 .. _class_RenderingServer_constant_ARRAY_CUSTOM0:
 
@@ -1420,7 +1420,7 @@ Flag used to mark a vertex color array.
 
 :ref:`ArrayFormat<enum_RenderingServer_ArrayFormat>` **ARRAY_FORMAT_TEX_UV** = ``16``
 
-Flag used to mark an UV coordinates array.
+Flag used to mark a UV coordinates array.
 
 .. _class_RenderingServer_constant_ARRAY_FORMAT_TEX_UV2:
 
@@ -1428,7 +1428,7 @@ Flag used to mark an UV coordinates array.
 
 :ref:`ArrayFormat<enum_RenderingServer_ArrayFormat>` **ARRAY_FORMAT_TEX_UV2** = ``32``
 
-Flag used to mark an UV coordinates array for the second UV coordinates.
+Flag used to mark a UV coordinates array for the second UV coordinates.
 
 .. _class_RenderingServer_constant_ARRAY_FORMAT_CUSTOM0:
 
@@ -5189,7 +5189,7 @@ The maximum number of glow levels that can be used with the glow post-processing
 
 **MAX_CURSORS** = ``8``
 
-*Deprecated.* This constant is unused.
+*Deprecated.* This constant is unused internally.
 
 .. _class_RenderingServer_constant_MAX_2D_DIRECTIONAL_LIGHTS:
 
@@ -10243,7 +10243,7 @@ Returns a texture :ref:`RID<class_RID>` that can be used with :ref:`RenderingDev
 
 :ref:`RID<class_RID>` **texture_proxy_create** **(** :ref:`RID<class_RID>` base **)**
 
-*Deprecated.* As ProxyTexture was removed in Godot 4, this method does nothing when called and always returns a null :ref:`RID<class_RID>`.
+*Deprecated.* ProxyTexture was removed in Godot 4, so this method does nothing when called and always returns a null :ref:`RID<class_RID>`.
 
 .. rst-class:: classref-item-separator
 
