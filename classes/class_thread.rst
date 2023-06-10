@@ -25,7 +25,7 @@ A unit of execution in a process. Can run methods on :ref:`Object<class_Object>`
 
 \ **Warning:**\ 
 
-To guarantee that the operating system is able to perform proper cleanup (no crashes, no deadlocks), these conditions must be met by the time a **Thread**'s reference count reaches zero and therefore it is destroyed:
+To ensure proper cleanup without crashes or deadlocks, when a **Thread**'s reference count reaches zero and it is therefore destroyed, the following conditions must be met:
 
 - It must not have any :ref:`Mutex<class_Mutex>` objects locked.
 
@@ -179,8 +179,6 @@ Joins the **Thread** and waits for it to finish. Returns the output of the :ref:
 Should either be used when you want to retrieve the value returned from the method called by the **Thread** or before freeing the instance that contains the **Thread**.
 
 To determine if this can be called without blocking the calling thread, check if :ref:`is_alive<class_Thread_method_is_alive>` is ``false``.
-
-\ **Note:** After the **Thread** finishes joining it will be disposed. If you want to use it again you will have to create a new instance of it.
 
 .. |virtual| replace:: :abbr:`virtual (This method should typically be overridden by the user to have any effect.)`
 .. |const| replace:: :abbr:`const (This method has no side effects. It doesn't modify any of the instance's member variables.)`

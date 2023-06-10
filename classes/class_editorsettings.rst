@@ -89,8 +89,6 @@ Properties
    +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`         | :ref:`editors/2d/bone_width<class_EditorSettings_property_editors/2d/bone_width>`                                                                                                   |
    +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | :ref:`bool<class_bool>`       | :ref:`editors/2d/constrain_editor_view<class_EditorSettings_property_editors/2d/constrain_editor_view>`                                                                             |
-   +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Color<class_Color>`     | :ref:`editors/2d/grid_color<class_EditorSettings_property_editors/2d/grid_color>`                                                                                                   |
    +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Color<class_Color>`     | :ref:`editors/2d/guides_color<class_EditorSettings_property_editors/2d/guides_color>`                                                                                               |
@@ -369,6 +367,8 @@ Properties
    +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`         | :ref:`run/output/font_size<class_EditorSettings_property_run/output/font_size>`                                                                                                     |
    +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`int<class_int>`         | :ref:`run/window_placement/android_window<class_EditorSettings_property_run/window_placement/android_window>`                                                                       |
+   +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`         | :ref:`run/window_placement/rect<class_EditorSettings_property_run/window_placement/rect>`                                                                                           |
    +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Vector2<class_Vector2>` | :ref:`run/window_placement/rect_custom_position<class_EditorSettings_property_run/window_placement/rect_custom_position>`                                                           |
@@ -394,8 +394,6 @@ Properties
    | :ref:`bool<class_bool>`       | :ref:`text_editor/appearance/gutters/highlight_type_safe_lines<class_EditorSettings_property_text_editor/appearance/gutters/highlight_type_safe_lines>`                             |
    +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`       | :ref:`text_editor/appearance/gutters/line_numbers_zero_padded<class_EditorSettings_property_text_editor/appearance/gutters/line_numbers_zero_padded>`                               |
-   +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-   | :ref:`bool<class_bool>`       | :ref:`text_editor/appearance/gutters/show_bookmark_gutter<class_EditorSettings_property_text_editor/appearance/gutters/show_bookmark_gutter>`                                       |
    +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`       | :ref:`text_editor/appearance/gutters/show_info_gutter<class_EditorSettings_property_text_editor/appearance/gutters/show_info_gutter>`                                               |
    +-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -808,18 +806,6 @@ The color to use for selected bones in the 2D skeleton editor. See also :ref:`ed
 :ref:`int<class_int>` **editors/2d/bone_width**
 
 The bone width in the 2D skeleton editor (in pixels). See also :ref:`editors/2d/bone_outline_size<class_EditorSettings_property_editors/2d/bone_outline_size>`.
-
-.. rst-class:: classref-item-separator
-
-----
-
-.. _class_EditorSettings_property_editors/2d/constrain_editor_view:
-
-.. rst-class:: classref-property
-
-:ref:`bool<class_bool>` **editors/2d/constrain_editor_view**
-
-If ``true``, prevents the 2D editor viewport from leaving the scene. Limits are calculated dynamically based on nodes present in the current scene. If ``false``, the 2D editor viewport will be able to move freely, but you risk getting lost when zooming out too far. You can refocus on the scene by selecting a node then pressing :kbd:`F`.
 
 .. rst-class:: classref-item-separator
 
@@ -2597,6 +2583,20 @@ The size of the font in the **Output** panel at the bottom of the editor. This s
 
 ----
 
+.. _class_EditorSettings_property_run/window_placement/android_window:
+
+.. rst-class:: classref-property
+
+:ref:`int<class_int>` **run/window_placement/android_window**
+
+The Android window to display the project on when starting the project from the editor.
+
+\ **Note:** Only available in the Android editor.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_EditorSettings_property_run/window_placement/rect:
 
 .. rst-class:: classref-property
@@ -2753,25 +2753,13 @@ If ``true``, displays line numbers with zero padding (e.g. ``007`` instead of ``
 
 ----
 
-.. _class_EditorSettings_property_text_editor/appearance/gutters/show_bookmark_gutter:
-
-.. rst-class:: classref-property
-
-:ref:`bool<class_bool>` **text_editor/appearance/gutters/show_bookmark_gutter**
-
-If ``true``, displays icons for bookmarks in a gutter at the left. Bookmarks remain functional when this setting is disabled.
-
-.. rst-class:: classref-item-separator
-
-----
-
 .. _class_EditorSettings_property_text_editor/appearance/gutters/show_info_gutter:
 
 .. rst-class:: classref-property
 
 :ref:`bool<class_bool>` **text_editor/appearance/gutters/show_info_gutter**
 
-If ``true``, displays a gutter at the left containing icons for methods with signal connections.
+If ``true``, displays a gutter at the left containing icons for methods with signal connections and for overridden methods.
 
 .. rst-class:: classref-item-separator
 
