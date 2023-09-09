@@ -23,6 +23,13 @@ Description
 
 This node can be bound to a specific pose of a :ref:`XRPositionalTracker<class_XRPositionalTracker>` and will automatically have its :ref:`Node3D.transform<class_Node3D_property_transform>` updated by the :ref:`XRServer<class_XRServer>`. Nodes of this type must be added as children of the :ref:`XROrigin3D<class_XROrigin3D>` node.
 
+.. rst-class:: classref-introduction-group
+
+Tutorials
+---------
+
+- :doc:`XR documentation index <../tutorials/xr/index>`
+
 .. rst-class:: classref-reftable-group
 
 Properties
@@ -54,6 +61,23 @@ Methods
    +-----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | void                        | :ref:`trigger_haptic_pulse<class_XRNode3D_method_trigger_haptic_pulse>` **(** :ref:`String<class_String>` action_name, :ref:`float<class_float>` frequency, :ref:`float<class_float>` amplitude, :ref:`float<class_float>` duration_sec, :ref:`float<class_float>` delay_sec **)** |
    +-----------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+.. rst-class:: classref-section-separator
+
+----
+
+.. rst-class:: classref-descriptions-group
+
+Signals
+-------
+
+.. _class_XRNode3D_signal_tracking_changed:
+
+.. rst-class:: classref-signal
+
+**tracking_changed** **(** :ref:`bool<class_bool>` tracking **)**
+
+Emitted when the :ref:`tracker<class_XRNode3D_property_tracker>` starts or stops receiving updated tracking data for the :ref:`pose<class_XRNode3D_property_pose>` being tracked. The ``tracking`` argument indicates whether the tracker is getting updated tracking data.
 
 .. rst-class:: classref-section-separator
 

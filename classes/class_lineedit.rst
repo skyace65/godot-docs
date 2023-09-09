@@ -82,13 +82,15 @@ Properties
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                           | :ref:`caret_force_displayed<class_LineEdit_property_caret_force_displayed>`                                 | ``false``                                                                           |
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
-   | :ref:`bool<class_bool>`                                           | :ref:`caret_mid_grapheme<class_LineEdit_property_caret_mid_grapheme>`                                       | ``true``                                                                            |
+   | :ref:`bool<class_bool>`                                           | :ref:`caret_mid_grapheme<class_LineEdit_property_caret_mid_grapheme>`                                       | ``false``                                                                           |
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                           | :ref:`clear_button_enabled<class_LineEdit_property_clear_button_enabled>`                                   | ``false``                                                                           |
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                           | :ref:`context_menu_enabled<class_LineEdit_property_context_menu_enabled>`                                   | ``true``                                                                            |
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                           | :ref:`deselect_on_focus_loss_enabled<class_LineEdit_property_deselect_on_focus_loss_enabled>`               | ``true``                                                                            |
+   +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`                                           | :ref:`drag_and_drop_selection_enabled<class_LineEdit_property_drag_and_drop_selection_enabled>`             | ``true``                                                                            |
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                           | :ref:`draw_control_chars<class_LineEdit_property_draw_control_chars>`                                       | ``false``                                                                           |
    +-------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------+
@@ -701,7 +703,7 @@ If ``true``, the **LineEdit** will always show the caret, even if focus is lost.
 
 .. rst-class:: classref-property
 
-:ref:`bool<class_bool>` **caret_mid_grapheme** = ``true``
+:ref:`bool<class_bool>` **caret_mid_grapheme** = ``false``
 
 .. rst-class:: classref-property-setget
 
@@ -762,6 +764,23 @@ If ``true``, the context menu will appear when right-clicked.
 - :ref:`bool<class_bool>` **is_deselect_on_focus_loss_enabled** **(** **)**
 
 If ``true``, the selected text will be deselected when focus is lost.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_LineEdit_property_drag_and_drop_selection_enabled:
+
+.. rst-class:: classref-property
+
+:ref:`bool<class_bool>` **drag_and_drop_selection_enabled** = ``true``
+
+.. rst-class:: classref-property-setget
+
+- void **set_drag_and_drop_selection_enabled** **(** :ref:`bool<class_bool>` value **)**
+- :ref:`bool<class_bool>` **is_drag_and_drop_selection_enabled** **(** **)**
+
+If ``true``, allow drag and drop of selected text.
 
 .. rst-class:: classref-item-separator
 
@@ -829,7 +848,7 @@ If ``true``, the **LineEdit** width will increase to stay longer than the :ref:`
 - void **set_flat** **(** :ref:`bool<class_bool>` value **)**
 - :ref:`bool<class_bool>` **is_flat** **(** **)**
 
-If ``true``, the **LineEdit** don't display decoration.
+If ``true``, the **LineEdit** doesn't display decoration.
 
 .. rst-class:: classref-item-separator
 
@@ -846,7 +865,7 @@ If ``true``, the **LineEdit** don't display decoration.
 - void **set_language** **(** :ref:`String<class_String>` value **)**
 - :ref:`String<class_String>` **get_language** **(** **)**
 
-Language code used for line-breaking and text shaping algorithms, if left empty current locale is used instead.
+Language code used for line-breaking and text shaping algorithms. If left empty, current locale is used instead.
 
 .. rst-class:: classref-item-separator
 
