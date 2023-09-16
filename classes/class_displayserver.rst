@@ -34,9 +34,13 @@ Methods
    +-------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`String<class_String>`                                             | :ref:`clipboard_get<class_DisplayServer_method_clipboard_get>` **(** **)** |const|                                                                                                                                                                                                                                                                                                                                                                                                                    |
    +-------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`Image<class_Image>`                                               | :ref:`clipboard_get_image<class_DisplayServer_method_clipboard_get_image>` **(** **)** |const|                                                                                                                                                                                                                                                                                                                                                                                                        |
+   +-------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`String<class_String>`                                             | :ref:`clipboard_get_primary<class_DisplayServer_method_clipboard_get_primary>` **(** **)** |const|                                                                                                                                                                                                                                                                                                                                                                                                    |
    +-------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                                                 | :ref:`clipboard_has<class_DisplayServer_method_clipboard_has>` **(** **)** |const|                                                                                                                                                                                                                                                                                                                                                                                                                    |
+   +-------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`                                                 | :ref:`clipboard_has_image<class_DisplayServer_method_clipboard_has_image>` **(** **)** |const|                                                                                                                                                                                                                                                                                                                                                                                                        |
    +-------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | void                                                                    | :ref:`clipboard_set<class_DisplayServer_method_clipboard_set>` **(** :ref:`String<class_String>` clipboard **)**                                                                                                                                                                                                                                                                                                                                                                                      |
    +-------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1188,7 +1192,7 @@ enum **VSyncMode**:
 
 :ref:`VSyncMode<enum_DisplayServer_VSyncMode>` **VSYNC_DISABLED** = ``0``
 
-No vertical synchronization, which means the engine will display frames as fast as possible (tearing may be visible). Framerate is unlimited (nonwithstanding :ref:`Engine.max_fps<class_Engine_property_max_fps>`).
+No vertical synchronization, which means the engine will display frames as fast as possible (tearing may be visible). Framerate is unlimited (notwithstanding :ref:`Engine.max_fps<class_Engine_property_max_fps>`).
 
 .. _class_DisplayServer_constant_VSYNC_ENABLED:
 
@@ -1196,7 +1200,7 @@ No vertical synchronization, which means the engine will display frames as fast 
 
 :ref:`VSyncMode<enum_DisplayServer_VSyncMode>` **VSYNC_ENABLED** = ``1``
 
-Default vertical synchronization mode, the image is displayed only on vertical blanking intervals (no tearing is visible). Framerate is limited by the monitor refresh rate (nonwithstanding :ref:`Engine.max_fps<class_Engine_property_max_fps>`).
+Default vertical synchronization mode, the image is displayed only on vertical blanking intervals (no tearing is visible). Framerate is limited by the monitor refresh rate (notwithstanding :ref:`Engine.max_fps<class_Engine_property_max_fps>`).
 
 .. _class_DisplayServer_constant_VSYNC_ADAPTIVE:
 
@@ -1204,7 +1208,7 @@ Default vertical synchronization mode, the image is displayed only on vertical b
 
 :ref:`VSyncMode<enum_DisplayServer_VSyncMode>` **VSYNC_ADAPTIVE** = ``2``
 
-Behaves like :ref:`VSYNC_DISABLED<class_DisplayServer_constant_VSYNC_DISABLED>` when the framerate drops below the screen's refresh rate to reduce stuttering (tearing may be visible). Otherwise, vertical synchronization is enabled to avoid tearing. Framerate is limited by the monitor refresh rate (nonwithstanding :ref:`Engine.max_fps<class_Engine_property_max_fps>`). Behaves like :ref:`VSYNC_ENABLED<class_DisplayServer_constant_VSYNC_ENABLED>` when using the Compatibility rendering method.
+Behaves like :ref:`VSYNC_DISABLED<class_DisplayServer_constant_VSYNC_DISABLED>` when the framerate drops below the screen's refresh rate to reduce stuttering (tearing may be visible). Otherwise, vertical synchronization is enabled to avoid tearing. Framerate is limited by the monitor refresh rate (notwithstanding :ref:`Engine.max_fps<class_Engine_property_max_fps>`). Behaves like :ref:`VSYNC_ENABLED<class_DisplayServer_constant_VSYNC_ENABLED>` when using the Compatibility rendering method.
 
 .. _class_DisplayServer_constant_VSYNC_MAILBOX:
 
@@ -1212,7 +1216,7 @@ Behaves like :ref:`VSYNC_DISABLED<class_DisplayServer_constant_VSYNC_DISABLED>` 
 
 :ref:`VSyncMode<enum_DisplayServer_VSyncMode>` **VSYNC_MAILBOX** = ``3``
 
-Displays the most recent image in the queue on vertical blanking intervals, while rendering to the other images (no tearing is visible). Framerate is unlimited (nonwithstanding :ref:`Engine.max_fps<class_Engine_property_max_fps>`).
+Displays the most recent image in the queue on vertical blanking intervals, while rendering to the other images (no tearing is visible). Framerate is unlimited (notwithstanding :ref:`Engine.max_fps<class_Engine_property_max_fps>`).
 
 Although not guaranteed, the images can be rendered as fast as possible, which may reduce input lag (also called "Fast" V-Sync mode). :ref:`VSYNC_MAILBOX<class_DisplayServer_constant_VSYNC_MAILBOX>` works best when at least twice as many frames as the display refresh rate are rendered. Behaves like :ref:`VSYNC_ENABLED<class_DisplayServer_constant_VSYNC_ENABLED>` when using the Compatibility rendering method.
 
@@ -1406,6 +1410,18 @@ Returns the user's clipboard as a string if possible.
 
 ----
 
+.. _class_DisplayServer_method_clipboard_get_image:
+
+.. rst-class:: classref-method
+
+:ref:`Image<class_Image>` **clipboard_get_image** **(** **)** |const|
+
+Returns the user's clipboard as an image if possible.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_DisplayServer_method_clipboard_get_primary:
 
 .. rst-class:: classref-method
@@ -1426,7 +1442,19 @@ Returns the user's `primary <https://unix.stackexchange.com/questions/139191/wha
 
 :ref:`bool<class_bool>` **clipboard_has** **(** **)** |const|
 
-Returns ``true`` if there is content on the user's clipboard.
+Returns ``true`` if there is a text content on the user's clipboard.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_DisplayServer_method_clipboard_has_image:
+
+.. rst-class:: classref-method
+
+:ref:`bool<class_bool>` **clipboard_has_image** **(** **)** |const|
+
+Returns ``true`` if there is an image content on the user's clipboard.
 
 .. rst-class:: classref-item-separator
 
@@ -1548,7 +1576,11 @@ Callbacks have the following arguments: ``bool status, PackedStringArray selecte
 
 \ **Note:** This method is implemented if the display server has the ``FEATURE_NATIVE_DIALOG`` feature.
 
-\ **Note:** This method is implemented on Windows and macOS.
+\ **Note:** This method is implemented on Linux, Windows and macOS.
+
+\ **Note:** ``current_directory`` might be ignored.
+
+\ **Note:** On Linux, ``show_hidden`` is ignored.
 
 \ **Note:** On macOS, native file dialogs have no title.
 
@@ -1680,7 +1712,7 @@ Returns index of the screen which contains specified rectangle.
 
 :ref:`bool<class_bool>` **get_swap_cancel_ok** **(** **)**
 
-Returns ``true`` if positions of **OK** and **Cancel** buttons are swapped in dialogs. This is enabled by default on Windows and UWP to follow interface conventions, and be toggled by changing :ref:`ProjectSettings.gui/common/swap_cancel_ok<class_ProjectSettings_property_gui/common/swap_cancel_ok>`.
+Returns ``true`` if positions of **OK** and **Cancel** buttons are swapped in dialogs. This is enabled by default on Windows to follow interface conventions, and be toggled by changing :ref:`ProjectSettings.gui/common/swap_cancel_ok<class_ProjectSettings_property_gui/common/swap_cancel_ok>`.
 
 \ **Note:** This doesn't affect native dialogs such as the ones spawned by :ref:`dialog_show<class_DisplayServer_method_dialog_show>`.
 
