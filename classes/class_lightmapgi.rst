@@ -31,6 +31,13 @@ The **LightmapGI** node is used to compute and store baked lightmaps. Lightmaps 
 
 \ **Note:** If no custom lightmappers are installed, **LightmapGI** can only be baked when using the Vulkan backend (Forward+ or Mobile), not OpenGL.
 
+.. rst-class:: classref-introduction-group
+
+Tutorials
+---------
+
+- :doc:`Using Lightmap global illumination <../tutorials/3d/global_illumination/using_lightmap_gi>`
+
 .. rst-class:: classref-reftable-group
 
 Properties
@@ -247,6 +254,14 @@ Lightmap baking failed as the resulting image couldn't be saved or imported by G
 :ref:`BakeError<enum_LightmapGI_BakeError>` **BAKE_ERROR_USER_ABORTED** = ``8``
 
 The user aborted the lightmap baking operation (typically by clicking the **Cancel** button in the progress dialog).
+
+.. _class_LightmapGI_constant_BAKE_ERROR_TEXTURE_SIZE_TOO_SMALL:
+
+.. rst-class:: classref-enumeration-constant
+
+:ref:`BakeError<enum_LightmapGI_BakeError>` **BAKE_ERROR_TEXTURE_SIZE_TOO_SMALL** = ``9``
+
+Lightmap baking failed as the maximum texture size is too small to fit some of the meshes marked for baking.
 
 .. rst-class:: classref-item-separator
 
