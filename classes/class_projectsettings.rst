@@ -1403,8 +1403,6 @@ Properties
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`float<class_float>`                         | :ref:`rendering/limits/cluster_builder/max_clustered_elements<class_ProjectSettings_property_rendering/limits/cluster_builder/max_clustered_elements>`                                                     | ``512``                                                                                          |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
-   | :ref:`int<class_int>`                             | :ref:`rendering/limits/forward_renderer/threaded_render_minimum_instances<class_ProjectSettings_property_rendering/limits/forward_renderer/threaded_render_minimum_instances>`                             | ``500``                                                                                          |
-   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`rendering/limits/global_shader_variables/buffer_size<class_ProjectSettings_property_rendering/limits/global_shader_variables/buffer_size>`                                                           | ``65536``                                                                                        |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`rendering/limits/opengl/max_lights_per_object<class_ProjectSettings_property_rendering/limits/opengl/max_lights_per_object>`                                                                         | ``8``                                                                                            |
@@ -1540,8 +1538,6 @@ Properties
    | :ref:`float<class_float>`                         | :ref:`threading/worker_pool/low_priority_thread_ratio<class_ProjectSettings_property_threading/worker_pool/low_priority_thread_ratio>`                                                                     | ``0.3``                                                                                          |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`threading/worker_pool/max_threads<class_ProjectSettings_property_threading/worker_pool/max_threads>`                                                                                                 | ``-1``                                                                                           |
-   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
-   | :ref:`bool<class_bool>`                           | :ref:`threading/worker_pool/use_system_threads_for_low_priority_tasks<class_ProjectSettings_property_threading/worker_pool/use_system_threads_for_low_priority_tasks>`                                     | ``true``                                                                                         |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`String<class_String>`                       | :ref:`xr/openxr/default_action_map<class_ProjectSettings_property_xr/openxr/default_action_map>`                                                                                                           | ``"res://openxr_action_map.tres"``                                                               |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
@@ -2246,7 +2242,7 @@ If ``true``, text-to-speech support is enabled, see :ref:`DisplayServer.tts_get_
 
 :ref:`int<class_int>` **audio/video/video_delay_compensation_ms** = ``0``
 
-Setting to hardcode audio delay when playing video. Best to leave this untouched unless you know what you are doing.
+Setting to hardcode audio delay when playing video. Best to leave this unchanged unless you know what you are doing.
 
 .. rst-class:: classref-item-separator
 
@@ -3840,7 +3836,11 @@ Main window can't be focused. No-focus window will ignore all input, except mous
 
 :ref:`bool<class_bool>` **display/window/size/resizable** = ``true``
 
-Allows the window to be resizable by default.
+If ``true``, allows the window to be resizable by default.
+
+\ **Note:** This property is only read when the project starts. To change whether the window is resizable at runtime, set :ref:`Window.unresizable<class_Window_property_unresizable>` instead on the root Window, which can be retrieved using ``get_viewport().get_window()``. :ref:`Window.unresizable<class_Window_property_unresizable>` takes the opposite value of this setting.
+
+\ **Note:** Certain window managers can be configured to ignore the non-resizable status of a window. Do not rely on this setting as a guarantee that the window will *never* be resizable.
 
 \ **Note:** This setting is ignored on iOS.
 
@@ -9100,7 +9100,7 @@ Controls the maximum number of physics steps that can be simulated each rendered
 
 :ref:`float<class_float>` **physics/common/physics_jitter_fix** = ``0.5``
 
-Controls how much physics ticks are synchronized with real time. For 0 or less, the ticks are synchronized. Such values are recommended for network games, where clock synchronization matters. Higher values cause higher deviation of in-game clock and real clock, but allows smoothing out framerate jitters. The default value of 0.5 should be fine for most; values above 2 could cause the game to react to dropped frames with a noticeable delay and are not recommended.
+Controls how much physics ticks are synchronized with real time. For 0 or less, the ticks are synchronized. Such values are recommended for network games, where clock synchronization matters. Higher values cause higher deviation of in-game clock and real clock, but allows smoothing out framerate jitters. The default value of 0.5 should be good enough for most; values above 2 could cause the game to react to dropped frames with a noticeable delay and are not recommended.
 
 \ **Note:** For best results, when using a custom physics interpolation solution, the physics jitter fix should be disabled by setting :ref:`physics/common/physics_jitter_fix<class_ProjectSettings_property_physics/common/physics_jitter_fix>` to ``0``.
 
@@ -10300,20 +10300,6 @@ Decreasing this value may improve GPU performance on certain setups, even if the
 
 ----
 
-.. _class_ProjectSettings_property_rendering/limits/forward_renderer/threaded_render_minimum_instances:
-
-.. rst-class:: classref-property
-
-:ref:`int<class_int>` **rendering/limits/forward_renderer/threaded_render_minimum_instances** = ``500``
-
-.. container:: contribute
-
-	There is currently no description for this property. Please help us by :ref:`contributing one <doc_updating_the_class_reference>`!
-
-.. rst-class:: classref-item-separator
-
-----
-
 .. _class_ProjectSettings_property_rendering/limits/global_shader_variables/buffer_size:
 
 .. rst-class:: classref-property
@@ -10376,9 +10362,7 @@ Max number of positional lights renderable in a frame. If more lights than this 
 
 :ref:`int<class_int>` **rendering/limits/spatial_indexer/threaded_cull_minimum_instances** = ``1000``
 
-.. container:: contribute
-
-	There is currently no description for this property. Please help us by :ref:`contributing one <doc_updating_the_class_reference>`!
+The minimum number of instances that must be present in a scene to enable culling computations on multiple threads. If a scene has fewer instances than this number, culling is done on a single thread.
 
 .. rst-class:: classref-item-separator
 
@@ -11222,20 +11206,6 @@ The texture *must* use a lossless compression format so that colors can be match
 :ref:`int<class_int>` **threading/worker_pool/max_threads** = ``-1``
 
 Maximum number of threads to be used by :ref:`WorkerThreadPool<class_WorkerThreadPool>`. Value of ``-1`` means no limit.
-
-.. rst-class:: classref-item-separator
-
-----
-
-.. _class_ProjectSettings_property_threading/worker_pool/use_system_threads_for_low_priority_tasks:
-
-.. rst-class:: classref-property
-
-:ref:`bool<class_bool>` **threading/worker_pool/use_system_threads_for_low_priority_tasks** = ``true``
-
-.. container:: contribute
-
-	There is currently no description for this property. Please help us by :ref:`contributing one <doc_updating_the_class_reference>`!
 
 .. rst-class:: classref-item-separator
 
