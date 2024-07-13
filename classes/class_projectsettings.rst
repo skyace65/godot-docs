@@ -177,6 +177,8 @@ Properties
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`debug/gdscript/warnings/assert_always_true<class_ProjectSettings_property_debug/gdscript/warnings/assert_always_true>`                                                                               | ``1``                                                                                            |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
+   | :ref:`int<class_int>`                             | :ref:`debug/gdscript/warnings/confusable_capture_reassignment<class_ProjectSettings_property_debug/gdscript/warnings/confusable_capture_reassignment>`                                                     | ``1``                                                                                            |
+   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`debug/gdscript/warnings/confusable_identifier<class_ProjectSettings_property_debug/gdscript/warnings/confusable_identifier>`                                                                         | ``1``                                                                                            |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`debug/gdscript/warnings/confusable_local_declaration<class_ProjectSettings_property_debug/gdscript/warnings/confusable_local_declaration>`                                                           | ``1``                                                                                            |
@@ -276,6 +278,8 @@ Properties
    | :ref:`int<class_int>`                             | :ref:`debug/settings/gdscript/max_call_stack<class_ProjectSettings_property_debug/settings/gdscript/max_call_stack>`                                                                                       | ``1024``                                                                                         |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`int<class_int>`                             | :ref:`debug/settings/profiler/max_functions<class_ProjectSettings_property_debug/settings/profiler/max_functions>`                                                                                         | ``16384``                                                                                        |
+   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
+   | :ref:`int<class_int>`                             | :ref:`debug/settings/profiler/max_timestamp_query_elements<class_ProjectSettings_property_debug/settings/profiler/max_timestamp_query_elements>`                                                           | ``256``                                                                                          |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                           | :ref:`debug/settings/stdout/print_fps<class_ProjectSettings_property_debug/settings/stdout/print_fps>`                                                                                                     | ``false``                                                                                        |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
@@ -702,6 +706,10 @@ Properties
    | :ref:`Dictionary<class_Dictionary>`               | :ref:`input/ui_up<class_ProjectSettings_property_input/ui_up>`                                                                                                                                             |                                                                                                  |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                           | :ref:`input_devices/buffering/agile_event_flushing<class_ProjectSettings_property_input_devices/buffering/agile_event_flushing>`                                                                           | ``false``                                                                                        |
+   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`                           | :ref:`input_devices/buffering/android/use_accumulated_input<class_ProjectSettings_property_input_devices/buffering/android/use_accumulated_input>`                                                         | ``true``                                                                                         |
+   +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
+   | :ref:`bool<class_bool>`                           | :ref:`input_devices/buffering/android/use_input_buffering<class_ProjectSettings_property_input_devices/buffering/android/use_input_buffering>`                                                             | ``true``                                                                                         |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
    | :ref:`bool<class_bool>`                           | :ref:`input_devices/compatibility/legacy_just_pressed_behavior<class_ProjectSettings_property_input_devices/compatibility/legacy_just_pressed_behavior>`                                                   | ``false``                                                                                        |
    +---------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------------+
@@ -1820,6 +1828,8 @@ This user directory is used for storing persistent data (``user://`` filesystem)
 
 The :ref:`application/config/use_custom_user_dir<class_ProjectSettings_property_application/config/use_custom_user_dir>` setting must be enabled for this to take effect.
 
+\ **Note:** If :ref:`application/config/custom_user_dir_name<class_ProjectSettings_property_application/config/custom_user_dir_name>` contains trailing periods, they will be stripped as folder names ending with a period are not allowed on Windows.
+
 .. rst-class:: classref-item-separator
 
 ----
@@ -2080,7 +2090,7 @@ This setting can be overridden using the ``--frame-delay <ms;>`` command line ar
 
 :ref:`bool<class_bool>` **application/run/low_processor_mode** = ``false`` :ref:`🔗<class_ProjectSettings_property_application/run/low_processor_mode>`
 
-If ``true``, enables low-processor usage mode. The screen is not redrawn if nothing changes visually. This is meant for writing applications and editors, but is pretty useless (and can hurt performance) in most games.
+If ``true``, enables low-processor usage mode. When enabled, the engine takes longer to redraw, but only redraws the screen if necessary. This may lower power consumption, and is intended for editors or mobile applications. For most games, because the screen needs to be redrawn every frame, it is recommended to keep this setting disabled.
 
 .. rst-class:: classref-item-separator
 
@@ -2561,6 +2571,18 @@ When set to ``warn`` or ``error``, produces a warning or an error respectively w
 :ref:`int<class_int>` **debug/gdscript/warnings/assert_always_true** = ``1`` :ref:`🔗<class_ProjectSettings_property_debug/gdscript/warnings/assert_always_true>`
 
 When set to ``warn`` or ``error``, produces a warning or an error respectively when an ``assert`` call always evaluates to true.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_ProjectSettings_property_debug/gdscript/warnings/confusable_capture_reassignment:
+
+.. rst-class:: classref-property
+
+:ref:`int<class_int>` **debug/gdscript/warnings/confusable_capture_reassignment** = ``1`` :ref:`🔗<class_ProjectSettings_property_debug/gdscript/warnings/confusable_capture_reassignment>`
+
+When set to ``warn`` or ``error``, produces a warning or an error respectively when a local variable captured by a lambda is reassigned, since this does not modify the outer local variable.
 
 .. rst-class:: classref-item-separator
 
@@ -3173,6 +3195,18 @@ Maximum call stack allowed for debugging GDScript.
 :ref:`int<class_int>` **debug/settings/profiler/max_functions** = ``16384`` :ref:`🔗<class_ProjectSettings_property_debug/settings/profiler/max_functions>`
 
 Maximum number of functions per frame allowed when profiling.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_ProjectSettings_property_debug/settings/profiler/max_timestamp_query_elements:
+
+.. rst-class:: classref-property
+
+:ref:`int<class_int>` **debug/settings/profiler/max_timestamp_query_elements** = ``256`` :ref:`🔗<class_ProjectSettings_property_debug/settings/profiler/max_timestamp_query_elements>`
+
+Maximum number of timestamp query elements allowed per frame for visual profiling.
 
 .. rst-class:: classref-item-separator
 
@@ -4200,9 +4234,9 @@ Defines how the base size is stretched to fit the resolution of the window or sc
 
 \ **"disabled"**: No stretching happens. One unit in the scene corresponds to one pixel on the screen. In this mode, :ref:`display/window/stretch/aspect<class_ProjectSettings_property_display/window/stretch/aspect>` has no effect. Recommended for non-game applications.
 
-\ **"canvas_items"**: The base size specified in width and height in the project settings is stretched to cover the whole screen (taking :ref:`display/window/stretch/aspect<class_ProjectSettings_property_display/window/stretch/aspect>` into account). This means that everything is rendered directly at the target resolution. 3D is unaffected, while in 2D, there is no longer a 1:1 correspondence between sprite pixels and screen pixels, which may result in scaling artifacts. Recommended for most games that don't use a pixel art esthetic, although it is possible to use this stretch mode for pixel art games too (especially in 3D).
+\ **"canvas_items"**: The base size specified in width and height in the project settings is stretched to cover the whole screen (taking :ref:`display/window/stretch/aspect<class_ProjectSettings_property_display/window/stretch/aspect>` into account). This means that everything is rendered directly at the target resolution. 3D is unaffected, while in 2D, there is no longer a 1:1 correspondence between sprite pixels and screen pixels, which may result in scaling artifacts. Recommended for most games that don't use a pixel art aesthetic, although it is possible to use this stretch mode for pixel art games too (especially in 3D).
 
-\ **"viewport"**: The size of the root :ref:`Viewport<class_Viewport>` is set precisely to the base size specified in the Project Settings' Display section. The scene is rendered to this viewport first. Finally, this viewport is scaled to fit the screen (taking :ref:`display/window/stretch/aspect<class_ProjectSettings_property_display/window/stretch/aspect>` into account). Recommended for games that use a pixel art esthetic.
+\ **"viewport"**: The size of the root :ref:`Viewport<class_Viewport>` is set precisely to the base size specified in the Project Settings' Display section. The scene is rendered to this viewport first. Finally, this viewport is scaled to fit the screen (taking :ref:`display/window/stretch/aspect<class_ProjectSettings_property_display/window/stretch/aspect>` into account). Recommended for games that use a pixel art aesthetic.
 
 .. rst-class:: classref-item-separator
 
@@ -4316,9 +4350,11 @@ Changing this value allows setting up a multi-project scenario where there are m
 
 :ref:`bool<class_bool>` **editor/export/convert_text_resources_to_binary** = ``true`` :ref:`🔗<class_ProjectSettings_property_editor/export/convert_text_resources_to_binary>`
 
-If ``true``, text resources are converted to a binary format on export. This decreases file sizes and speeds up loading slightly.
+If ``true``, text resource (``tres``) and text scene (``tscn``) files are converted to their corresponding binary format on export. This decreases file sizes and speeds up loading slightly.
 
-\ **Note:** If :ref:`editor/export/convert_text_resources_to_binary<class_ProjectSettings_property_editor/export/convert_text_resources_to_binary>` is ``true``, :ref:`@GDScript.load<class_@GDScript_method_load>` will not be able to return the converted files in an exported project. Some file paths within the exported PCK will also change, such as ``project.godot`` becoming ``project.binary``. If you rely on run-time loading of files present within the PCK, set :ref:`editor/export/convert_text_resources_to_binary<class_ProjectSettings_property_editor/export/convert_text_resources_to_binary>` to ``false``.
+\ **Note:** Because a resource's file extension may change in an exported project, it is heavily recommended to use :ref:`@GDScript.load<class_@GDScript_method_load>` or :ref:`ResourceLoader<class_ResourceLoader>` instead of :ref:`FileAccess<class_FileAccess>` to load resources dynamically.
+
+\ **Note:** The project settings file (``project.godot``) will always be converted to binary on export, regardless of this setting.
 
 .. rst-class:: classref-item-separator
 
@@ -5987,6 +6023,30 @@ If ``false``, such events will be flushed only once per process frame, between i
 Enabling this can greatly improve the responsiveness to input, specially in devices that need to run multiple physics frames per visible (process) frame, because they can't run at the target frame rate.
 
 \ **Note:** Currently implemented only on Android.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_ProjectSettings_property_input_devices/buffering/android/use_accumulated_input:
+
+.. rst-class:: classref-property
+
+:ref:`bool<class_bool>` **input_devices/buffering/android/use_accumulated_input** = ``true`` :ref:`🔗<class_ProjectSettings_property_input_devices/buffering/android/use_accumulated_input>`
+
+If ``true``, multiple input events will be accumulated into a single input event when possible.
+
+.. rst-class:: classref-item-separator
+
+----
+
+.. _class_ProjectSettings_property_input_devices/buffering/android/use_input_buffering:
+
+.. rst-class:: classref-property
+
+:ref:`bool<class_bool>` **input_devices/buffering/android/use_input_buffering** = ``true`` :ref:`🔗<class_ProjectSettings_property_input_devices/buffering/android/use_input_buffering>`
+
+If ``true``, input events will be buffered prior to being dispatched.
 
 .. rst-class:: classref-item-separator
 
@@ -9638,8 +9698,6 @@ Sets the number of MSAA samples to use for 2D/Canvas rendering (as a power of tw
 
 Sets the number of MSAA samples to use for 3D rendering (as a power of two). MSAA is used to reduce aliasing around the edges of polygons. A higher MSAA value results in smoother edges but can be significantly slower on some hardware, especially integrated graphics due to their limited memory bandwidth. See also :ref:`rendering/scaling_3d/mode<class_ProjectSettings_property_rendering/scaling_3d/mode>` for supersampling, which provides higher quality but is much more expensive. This has no effect on shader-induced aliasing or texture aliasing.
 
-\ **Note:** MSAA is only supported in the Forward+ and Mobile rendering methods, not Compatibility.
-
 .. rst-class:: classref-item-separator
 
 ----
@@ -11797,7 +11855,7 @@ Specify whether OpenXR should be configured for an HMD or a hand held device.
 
 If true and foveation is supported, will automatically adjust foveation level based on framerate up to the level set on :ref:`xr/openxr/foveation_level<class_ProjectSettings_property_xr/openxr/foveation_level>`.
 
-\ **Note:** Only works on compatibility renderer.
+\ **Note:** Only works on the Compatibility rendering method.
 
 .. rst-class:: classref-item-separator
 
@@ -11811,7 +11869,7 @@ If true and foveation is supported, will automatically adjust foveation level ba
 
 Applied foveation level if supported: 0 = off, 1 = low, 2 = medium, 3 = high.
 
-\ **Note:** Only works on compatibility renderer.
+\ **Note:** Only works on the Compatibility rendering method. On platforms other than Android, if :ref:`rendering/anti_aliasing/quality/msaa_3d<class_ProjectSettings_property_rendering/anti_aliasing/quality/msaa_3d>` is enabled, this feature will be disabled.
 
 .. rst-class:: classref-item-separator
 
