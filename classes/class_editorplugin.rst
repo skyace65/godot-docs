@@ -89,6 +89,8 @@ Methods
    +-----------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                    | :ref:`add_autoload_singleton<class_EditorPlugin_method_add_autoload_singleton>`\ (\ name\: :ref:`String<class_String>`, path\: :ref:`String<class_String>`\ )                                                                                          |
    +-----------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                    | :ref:`add_context_menu_plugin<class_EditorPlugin_method_add_context_menu_plugin>`\ (\ slot\: :ref:`ContextMenuSlot<enum_EditorContextMenuPlugin_ContextMenuSlot>`, plugin\: :ref:`EditorContextMenuPlugin<class_EditorContextMenuPlugin>`\ )           |
+   +-----------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | :ref:`Button<class_Button>`                               | :ref:`add_control_to_bottom_panel<class_EditorPlugin_method_add_control_to_bottom_panel>`\ (\ control\: :ref:`Control<class_Control>`, title\: :ref:`String<class_String>`, shortcut\: :ref:`Shortcut<class_Shortcut>` = null\ )                       |
    +-----------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                    | :ref:`add_control_to_container<class_EditorPlugin_method_add_control_to_container>`\ (\ container\: :ref:`CustomControlContainer<enum_EditorPlugin_CustomControlContainer>`, control\: :ref:`Control<class_Control>`\ )                                |
@@ -140,6 +142,8 @@ Methods
    | |void|                                                    | :ref:`queue_save_layout<class_EditorPlugin_method_queue_save_layout>`\ (\ )                                                                                                                                                                            |
    +-----------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                    | :ref:`remove_autoload_singleton<class_EditorPlugin_method_remove_autoload_singleton>`\ (\ name\: :ref:`String<class_String>`\ )                                                                                                                        |
+   +-----------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | |void|                                                    | :ref:`remove_context_menu_plugin<class_EditorPlugin_method_remove_context_menu_plugin>`\ (\ plugin\: :ref:`EditorContextMenuPlugin<class_EditorContextMenuPlugin>`\ )                                                                                  |
    +-----------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
    | |void|                                                    | :ref:`remove_control_from_bottom_panel<class_EditorPlugin_method_remove_control_from_bottom_panel>`\ (\ control\: :ref:`Control<class_Control>`\ )                                                                                                     |
    +-----------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -1085,6 +1089,20 @@ Adds a script at ``path`` to the Autoload list as ``name``.
 
 ----
 
+.. _class_EditorPlugin_method_add_context_menu_plugin:
+
+.. rst-class:: classref-method
+
+|void| **add_context_menu_plugin**\ (\ slot\: :ref:`ContextMenuSlot<enum_EditorContextMenuPlugin_ContextMenuSlot>`, plugin\: :ref:`EditorContextMenuPlugin<class_EditorContextMenuPlugin>`\ ) :ref:`🔗<class_EditorPlugin_method_add_context_menu_plugin>`
+
+Adds a plugin to the context menu. ``slot`` is the context menu where the plugin will be added.
+
+See :ref:`ContextMenuSlot<enum_EditorContextMenuPlugin_ContextMenuSlot>` for available context menus. A plugin instance can belong only to a single context menu slot.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_EditorPlugin_method_add_control_to_bottom_panel:
 
 .. rst-class:: classref-method
@@ -1461,6 +1479,18 @@ Removes an Autoload ``name`` from the list.
 
 ----
 
+.. _class_EditorPlugin_method_remove_context_menu_plugin:
+
+.. rst-class:: classref-method
+
+|void| **remove_context_menu_plugin**\ (\ plugin\: :ref:`EditorContextMenuPlugin<class_EditorContextMenuPlugin>`\ ) :ref:`🔗<class_EditorPlugin_method_remove_context_menu_plugin>`
+
+Removes the specified context menu plugin.
+
+.. rst-class:: classref-item-separator
+
+----
+
 .. _class_EditorPlugin_method_remove_control_from_bottom_panel:
 
 .. rst-class:: classref-method
@@ -1563,7 +1593,7 @@ Removes an import plugin registered by :ref:`add_import_plugin<class_EditorPlugi
 
 |void| **remove_inspector_plugin**\ (\ plugin\: :ref:`EditorInspectorPlugin<class_EditorInspectorPlugin>`\ ) :ref:`🔗<class_EditorPlugin_method_remove_inspector_plugin>`
 
-Removes an inspector plugin registered by :ref:`add_import_plugin<class_EditorPlugin_method_add_import_plugin>`
+Removes an inspector plugin registered by :ref:`add_inspector_plugin<class_EditorPlugin_method_add_inspector_plugin>`.
 
 .. rst-class:: classref-item-separator
 
